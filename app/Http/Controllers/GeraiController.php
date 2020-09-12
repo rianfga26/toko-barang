@@ -60,7 +60,8 @@ class GeraiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = auth()->user($id);
+        return view('admin.profile', compact('users'));
     }
 
     /**

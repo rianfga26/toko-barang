@@ -29,7 +29,7 @@
                     @csrf
                       <div class="mb-3">
                         <label for="code"></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="#12345678">
+                        <input type="text" name="code" id="code" class="form-control" placeholder="d4fr88">
                       </div>
                       <button type="submit" class="btn btn-warning float-right">Check</button>
                     </form>
