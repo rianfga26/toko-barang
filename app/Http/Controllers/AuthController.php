@@ -23,7 +23,7 @@ class AuthController extends Controller
         }
 
         if(\Auth::attempt(['username' => $req->username, 'password' => $req->password], $remember)){
-            return redirect(route('admin.dashboad'));
+            return redirect(route('admin.dashboard'));
         }else {
             return redirect(route('login'));
         }

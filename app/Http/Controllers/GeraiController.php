@@ -133,7 +133,7 @@ class GeraiController extends Controller
         ]);
 
         
-        return 'OK!';
+        return redirect()->route('admin.dashboard');
     }
 
 }

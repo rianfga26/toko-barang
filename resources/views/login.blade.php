@@ -17,6 +17,15 @@
   			<div class="col-5">
   				<div class="shadow rounded p-3">
   					<h3 class="text-muted text-center mb-4">Login Page</h3>
+					  @if ($errors->any())
+							<div class="alert alert-danger">
+								<ul>
+									@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
   					<form action="{{ route('postLogin') }}" method="post">
                       @csrf
 					  <div class="mb-3">

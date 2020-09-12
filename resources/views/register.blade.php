@@ -17,26 +17,35 @@
   			<div class="col-5">
   				<div class="shadow rounded p-3">
   					<h3 class="text-muted text-center mb-4">Register</h3>
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
   					<form method="post" action="{{ route('register') }}">
                       @csrf 
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Toko</label>
-                            <input type="text" class="form-control" id="nama" name="nama">
+                            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}">
                         </div>            
 
                         <div class="mb-3">
                             <label for="Email" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="Email" name="email">
+                            <input type="text" class="form-control" id="Email" name="email" value="{{ old('email') }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username">
+                            <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
                         </div>
 
                         <div class="mb-3">
@@ -56,7 +65,7 @@
   	</div>
 
     <!-- footer -->
-    <footer style="margin-top: 0px;">
+    <footer>
       <div class="container-fluid">
         <div class="row">
           <div class="col-md">
