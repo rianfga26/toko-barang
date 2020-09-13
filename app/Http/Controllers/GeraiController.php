@@ -73,36 +73,71 @@ class GeraiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'nama' => 'required|min:4|max:100',
-        //     'email' => 'required|max:100|email|unique:users',
-        //     'username' => 'required|max:100|unique:users',
-        //     'password' => 'required|min:8',
-        //     'deskripsi' => 'required',
-        //     'logo' => 'required|mimes:jpeg,jpg,png|file',
-        //     'code' => 'required|min:8|max:100'
-        // ]);
-        // dd($request->file('logo')->isValid());
+        $request->validate([
+            'nama' => 'required|min:4|max:100',
+            'email' => 'required|email',
+            'username' => 'required|max:20',
+            'new_password' => 'nullable|min:8',
+            'password_now' => 'nullable|min:8',
+            'deskripsi' => 'required',
+            'alamat' => 'required',
+            'buka' => 'required',
+            'tutup' => 'required',
+            'haribuka' => 'required',
+            'methode' => 'required',
+            'logo' => 'mimes:jpeg,jpg,png',
+            'code' => 'required|max:6'
+        ]);
+        // menyimpan data file yang diupload ke variabel $file
+        $file = $request->file('logo');
         
-        dd($request->file('logo'));
-
-        if ($request->file('logo')->isValid()) {
-            dd($request->logo->storeAs('images'));
+        if ($file) {
+            $namaFile= $file->getClientOriginalName();
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = 'assets/img/avatar';
+            //upload file
+            $file->move($tujuan_upload,date('His').$namaFile);
 
             $user = User::find($id);
             $user->nama = $request->nama;
             $user->email = $request->email;
             $user->username = $request->username;
-            $user->password = bcrypt($request->password);
-            $user->deskripsi = $request->deskripsi;
-            $user->logo = $request->logo;
+            $user->alamat = $request->alamat;
+            $user->password = $request->password_now === $user->password ? bcrypt($request->new_password) : $user->password;
+            $user->buka = $request->buka;
+            $user->tutup = $request->tutup;
+            $user->haribuka = $request->haribuka;
+            $user->pembayaran = $request->methode;
             $user->code = $request->code;
-    
-            if ($user->save()) {
-                return 'Data has update!';
+            $user->deskripsi = $request->deskripsi;
+            $user->logo = date('His').$namaFile;
+
+            if($user->save()){
+                return redirect()->back()->with('status', 'Edit Profile Berhasil!');   
             }
-        }
-        return 'data gagal di update!';
+
+            }else{
+                $user = User::find($id);
+                $user->nama = $request->nama;
+                $user->email = $request->email;
+                $user->username = $request->username;
+                $user->alamat = $request->alamat;
+                $user->password = $request->password_now === $user->password ? bcrypt($request->new_password) : $user->password;
+                $user->buka = $request->buka;
+                $user->tutup = $request->tutup;
+                $user->haribuka = $request->haribuka;
+                $user->pembayaran = $request->methode;
+                $user->code = $request->code;
+                $user->deskripsi = $request->deskripsi;
+                $user->logo = null;
+
+                if($user->save()){
+                    return redirect()->back()->with('status', 'Edit Profile Berhasil!');   
+                }
+            }
+            
+        
+
     }
 
     /**
@@ -134,7 +169,7 @@ class GeraiController extends Controller
         ]);
 
         
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('login')->with('status', 'Registrasi Berhasil Silahkan Login');
     }
 
 }
