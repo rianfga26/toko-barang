@@ -13,4 +13,4 @@ ubah konfigurasi database di env
 php artisan migrate
 php artisan serve
 ```
-Thanks for yout attention
+Thanks for your attention
