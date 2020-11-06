@@ -50,10 +50,6 @@ Route::prefix('admin')->group(function(){
     Route::resource('catalog', 'CatalogController');
 });
 
-// Route::group(['middleware' => 'auth'], function(){
-// });
-
-
 
 
 
